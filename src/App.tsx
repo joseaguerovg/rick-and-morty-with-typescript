@@ -1,6 +1,8 @@
-import './App.css';
 import { ICharacter } from './interfaces/ICharacter';
 import { useCharacters } from './hooks/useCharacters';
+
+import './App.scss';
+import { Header } from './components/Header';
 
 function App() {
 
@@ -16,7 +18,8 @@ function App() {
   }
 
   return (
-    <div>
+    <>
+      <Header />
       <table>
         <tbody>
           {
@@ -24,7 +27,7 @@ function App() {
           }
         </tbody>
       </table>
-    </div>
+    </>
   );
 }
 
