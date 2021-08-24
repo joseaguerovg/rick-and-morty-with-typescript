@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { ICharacterResponse } from './interfaces/ICharacterResponse';
 
 function App() {
+
+  useEffect(() => {
+    const getCharacters = async (): Promise<ICharacterResponse> => {
+      try {
+        const response = await fetch('https://rickandmortyapi.com/api/character').then(resp => resp.json())
+        return response
+      } catch (error) {
+        return error.message
+      }
+    }
+    getCharacters().then(resp => console.log(resp.info))
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
