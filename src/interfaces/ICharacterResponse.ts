@@ -1,10 +1,10 @@
 import { ICharacter } from "./ICharacter";
 
-interface IInfoResponse {
+export interface IInfoResponse {
     count: number,
     pages: number,
     next: string,
-    prev: string | null
+    prev: null
 }
 
 export interface ICharacterResponse {

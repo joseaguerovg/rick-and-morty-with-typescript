@@ -1,38 +1,29 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { ICharacterResponse } from './interfaces/ICharacterResponse';
+import { ICharacter } from './interfaces/ICharacter';
+import { useCharacters } from './hooks/useCharacters';
 
 function App() {
 
-  useEffect(() => {
-    const getCharacters = async (): Promise<ICharacterResponse> => {
-      try {
-        const response = await fetch('https://rickandmortyapi.com/api/character').then(resp => resp.json())
-        return response
-      } catch (error) {
-        return error.message
-      }
-    }
-    getCharacters().then(resp => console.log(resp.info))
-  }, [])
+  const { characters } = useCharacters();
+ 
+  const renderCharacter = (character: ICharacter) => {
+    return (
+      <tr key={character.id.toString()}>
+        <th>{character.name}</th>
+        <th>{character.gender}</th>
+      </tr>
+    )
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <table>
+        <tbody>
+          {
+            characters.map(renderCharacter)
+          }
+        </tbody>
+      </table>
     </div>
   );
 }
