@@ -3,8 +3,8 @@ import { ICharacter } from "./ICharacter";
 export interface IInfoResponse {
     count: number,
     pages: number,
-    next: string,
-    prev: null
+    next: string | null,
+    prev: string | null
 }
 
 export interface ICharacterResponse {

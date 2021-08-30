@@ -3,15 +3,23 @@ import { rickAndMortyApi } from "../api/rickAndMorty"
 import { ICharacter } from "../interfaces/ICharacter"
 import { ICharacterResponse, IInfoResponse } from "../interfaces/ICharacterResponse"
 
+const initialStateResponse: IInfoResponse = {
+    count: 0,
+    pages: 0,
+    next: '',
+    prev: null
+}
+
 export const useCharacters = () => {
     const [characters, setCharacters] = useState<ICharacter[]>([])
-    const [infoResponse, setInfoResponse] = useState<IInfoResponse>()
+    const [infoResponse, setInfoResponse] = useState<IInfoResponse>(initialStateResponse)
     const [errorResponse, setErrorResponse] = useState(false)
     const [loading, setLoading] = useState(true)
 
-    const loadCharacters = async () =>{
+    const loadCharacters = async (page: string | null = null) =>{
         try {
-            const response = await rickAndMortyApi.get<ICharacterResponse>('/character')
+            const filterPage = page !== null ? `?page=${page}` : ''
+            const response = await rickAndMortyApi.get<ICharacterResponse>(`/character${filterPage}`)
             setCharacters(response.data.results)
             setInfoResponse(response.data.info)
             setLoading(false)
@@ -19,6 +27,11 @@ export const useCharacters = () => {
             setErrorResponse(error.message)
         }
         
+    }
+
+    const goPage = (url: string | null) => {
+        const page = url !== null ? url.split('?')[1].substr(-1) : null
+        loadCharacters(page)
     }
   
     useEffect(() => {
@@ -29,6 +42,7 @@ export const useCharacters = () => {
         characters,
         infoResponse,
         errorResponse,
-        loading
+        loading,
+        goPage
     }
 }

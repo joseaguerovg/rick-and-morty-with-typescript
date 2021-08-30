@@ -1,32 +1,24 @@
-import { ICharacter } from './interfaces/ICharacter';
 import { useCharacters } from './hooks/useCharacters';
 
 import './App.scss';
 import { Header } from './components/Header';
+import { CharacterList } from './components/CharacterList';
+import { Pagination } from './components/Pagination';
+import { useEffect, useState } from 'react';
+import { ICharacter } from './interfaces/ICharacter';
+import { ICharacterResponse, IInfoResponse } from './interfaces/ICharacterResponse';
+import { rickAndMortyApi } from './api/rickAndMorty';
 
 function App() {
 
-  const { characters } = useCharacters();
- 
-  const renderCharacter = (character: ICharacter) => {
-    return (
-      <tr key={character.id.toString()}>
-        <th>{character.name}</th>
-        <th>{character.gender}</th>
-      </tr>
-    )
-  }
+  const { characters, infoResponse, goPage } = useCharacters();
 
   return (
     <>
       <Header />
-      <table>
-        <tbody>
-          {
-            characters.map(renderCharacter)
-          }
-        </tbody>
-      </table>
+      <Pagination info={infoResponse} goPage={goPage} />
+      <CharacterList items={characters} />
+      <Pagination info={infoResponse} goPage={goPage} />
     </>
   );
 }
