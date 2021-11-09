@@ -17,41 +17,6 @@ header{
   width: 100%;
 }
 
-.form-content{
-  width: 100%;
-  height: 60px;
-
-  .search-content{
-    background-color: transparent;
-    display: flex;
-
-    * {
-      border: 0;
-    }
-
-    input[type="text"] {
-      height: 60px;
-      width: 90%;
-      background-color: rgba(3, 121, 137, .9);
-      border-radius: 10px 0 0 10px;
-      padding: 20px;
-      color: #fff;
-      font-size: 20px;
-
-      &::placeholder {
-        color: rgba(255, 255, 255, .62);
-      }
-    }
-
-    button {
-      width: 10%;
-      cursor: pointer;
-      background-color: rgba(3, 121, 137, .9);
-      border-radius: 0 10px 10px 0;
-    }
-  }
-}
-
 .character-list{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
